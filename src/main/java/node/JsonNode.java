@@ -1,4 +1,4 @@
-package lumber;
+package node;
 
 /**
  * json 原木，hammer敲击的目标
@@ -29,6 +29,30 @@ public class JsonNode {
         this.body = body;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPathName() {
+        return pathName;
+    }
+
+    public void setPathName(String pathName) {
+        this.pathName = pathName;
+    }
+
+    public Object getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
     @Override
     public String toString() {
         return "JsonNode{" +
@@ -37,5 +61,4 @@ public class JsonNode {
                 ", body=" + body +
                 '}';
     }
-
 }

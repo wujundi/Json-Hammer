@@ -1,14 +1,13 @@
-package lumber;
+package node;
 
 import com.alibaba.fastjson.JSONArray;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * 本意是想对 JSONArray 进行包装，为其添加一个名字，和路径名
  */
-public class JsonArrayJsonNode extends JsonNode {
+public class JsonArrayNode extends JsonNode {
 
     private String name; // 当前原木枝干的名称
 
@@ -18,7 +17,7 @@ public class JsonArrayJsonNode extends JsonNode {
 
     private ArrayList<JsonNode> children;
 
-    public JsonArrayJsonNode(String name, String pathName, JSONArray jsonArray) {
+    public JsonArrayNode(String name, String pathName, JSONArray jsonArray) {
         this.name = name;
         this.pathName = pathName;
         this.body = jsonArray;

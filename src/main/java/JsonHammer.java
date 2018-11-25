@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public interface JsonHammer {
 
-    public List<String> hammer (String json_str);
+    public ArrayList<String> hammer (String json_str);
 }

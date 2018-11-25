@@ -1,10 +1,8 @@
-package lumber;
+package node;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public class JsonArrayJsonNodeTest {
+public class JsonArrayNodeTest {
 
 
     @Test
