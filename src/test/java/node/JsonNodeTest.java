@@ -9,7 +9,6 @@ public class JsonNodeTest {
 
         JsonNode jsonNode = new JsonNode("c","a.b.c","{}");
 
-        System.out.println(jsonNode instanceof JsonObjectNode);
     }
 
 }

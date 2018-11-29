@@ -1,5 +1,7 @@
 package node;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * json 原木，hammer敲击的目标
  */
@@ -49,7 +51,7 @@ public class JsonNode {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(Object body) {
         this.body = body;
     }
 
