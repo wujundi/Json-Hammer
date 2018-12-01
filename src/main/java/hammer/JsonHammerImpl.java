@@ -18,34 +18,25 @@ public class JsonHammerImpl implements JsonHammer {
     private static int count = 0;
 
     public ArrayList<String> hammer(String json_str) {
-        try{
-            Object object = JSON.parse(json_str,Feature.OrderedField);
-            JsonNode jsonNode = new JsonNode(ROOT_PREIFIX,ROOT_PREIFIX,object);
-            ArrayList<JsonNode> ancestor = new ArrayList<JsonNode>();
-            ancestor.add(jsonNode);
-            return hammer(ancestor,null,null);
-        } catch (Exception e){
-            e.printStackTrace();
-        } finally {
-            return null;
-        }
-
+        Object object = JSON.parse(json_str,Feature.OrderedField);
+        JsonNode jsonNode = new JsonNode(ROOT_PREIFIX,ROOT_PREIFIX,object);
+        ArrayList<JsonNode> ancestor = new ArrayList<JsonNode>();
+        ancestor.add(jsonNode);
+        return hammer(ancestor,null,null);
     }
 
     public ArrayList<String> hammer(String json_str, String... params) {
-        try{
-            HashSet<String> fixParamsSet = new HashSet<String>(Arrays.asList(params));
-            HashSet<String> pathParamSet = fixParam2PathParam(fixParamsSet);
-            Object object = JSON.parse(json_str,Feature.OrderedField);
-            JsonNode jsonNode = new JsonNode(ROOT_PREIFIX,ROOT_PREIFIX,object);
-            ArrayList<JsonNode> ancestor = new ArrayList<JsonNode>();
-            ancestor.add(jsonNode);
-            return hammer(ancestor,fixParamsSet,pathParamSet);
-        } catch (Exception e){
-            e.printStackTrace();
-        } finally {
-            return  null;
+        Object object = JSON.parse(json_str,Feature.OrderedField);
+        JsonNode jsonNode = new JsonNode(ROOT_PREIFIX,ROOT_PREIFIX,object);
+        ArrayList<JsonNode> ancestor = new ArrayList<JsonNode>();
+        ancestor.add(jsonNode);
+        HashSet<String> fixParamsSet = null;
+        HashSet<String> pathParamSet = null;
+        if(params != null){
+            fixParamsSet = new HashSet<String>(Arrays.asList(params));
+            pathParamSet = fixParam2PathParam(fixParamsSet);
         }
+        return hammer(ancestor,fixParamsSet,pathParamSet);
     }
 
     /**
