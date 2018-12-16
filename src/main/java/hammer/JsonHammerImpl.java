@@ -18,25 +18,40 @@ public class JsonHammerImpl implements JsonHammer {
     private static int count = 0;
 
     public ArrayList<String> hammer(String json_str) {
-        Object object = JSON.parse(json_str,Feature.OrderedField);
-        JsonNode jsonNode = new JsonNode(ROOT_PREIFIX,ROOT_PREIFIX,object);
-        ArrayList<JsonNode> ancestor = new ArrayList<JsonNode>();
-        ancestor.add(jsonNode);
-        return hammer(ancestor,null,null);
+        ArrayList<String> result = new ArrayList<String>();
+        try {
+            Object object = JSON.parse(json_str,Feature.OrderedField);
+            JsonNode jsonNode = new JsonNode(ROOT_PREIFIX,ROOT_PREIFIX,object);
+            ArrayList<JsonNode> ancestor = new ArrayList<JsonNode>();
+            ancestor.add(jsonNode);
+            result =  hammer(ancestor,null,null);
+            return result;
+        } catch (Exception e) {
+            result.add(json_str);
+            return result;
+        }
+
     }
 
     public ArrayList<String> hammer(String json_str, String... params) {
-        Object object = JSON.parse(json_str,Feature.OrderedField);
-        JsonNode jsonNode = new JsonNode(ROOT_PREIFIX,ROOT_PREIFIX,object);
-        ArrayList<JsonNode> ancestor = new ArrayList<JsonNode>();
-        ancestor.add(jsonNode);
-        HashSet<String> fixParamsSet = null;
-        HashSet<String> pathParamSet = null;
-        if(params != null){
-            fixParamsSet = new HashSet<String>(Arrays.asList(params));
-            pathParamSet = fixParam2PathParam(fixParamsSet);
+        ArrayList<String> result = new ArrayList<String>();
+        try {
+            Object object = JSON.parse(json_str,Feature.OrderedField);
+            JsonNode jsonNode = new JsonNode(ROOT_PREIFIX,ROOT_PREIFIX,object);
+            ArrayList<JsonNode> ancestor = new ArrayList<JsonNode>();
+            ancestor.add(jsonNode);
+            HashSet<String> fixParamsSet = null;
+            HashSet<String> pathParamSet = null;
+            if(params != null){
+                fixParamsSet = new HashSet<String>(Arrays.asList(params));
+                pathParamSet = fixParam2PathParam(fixParamsSet);
+            }
+            result = hammer(ancestor,fixParamsSet,pathParamSet);
+            return result;
+        } catch (Exception e) {
+            result.add(json_str);
+            return result;
         }
-        return hammer(ancestor,fixParamsSet,pathParamSet);
     }
 
     /**
