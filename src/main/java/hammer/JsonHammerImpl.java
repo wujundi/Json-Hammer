@@ -104,7 +104,7 @@ public class JsonHammerImpl implements JsonHammer {
         // 暂存空间升级为二维
         ArrayList<ArrayList<JsonNode>> tempExplode = new ArrayList<ArrayList<JsonNode>>();
         // 路径控制开关，当用户未指定路劲集合时，探索与膨胀不受限制，结果会将所有数组元素按照笛卡尔积输出
-        Boolean isFree = (fixParamsSet == null);
+        Boolean isFree = (fixParamsSet==null || fixParamsSet.size()==0);
         // 用于收集本轮产生的 JsonNode 的，临时列表
         ArrayList<JsonNode> tempJNArr = new ArrayList<JsonNode>();
         // 遍历输入 node 的子节点
@@ -112,11 +112,16 @@ public class JsonHammerImpl implements JsonHammer {
             JsonNode jn = ancestor.get(i);
             // 如果该节点的路径，在用户指定参数集合中的，即便还未解析到叶子节点，也放入最终结果中
             if( !isFree && fixParamsSet.contains(jn.getPathName())){
-                tempJNArr.add(jn);
-                continue;
+                // 如果前面轮次已经为该节点打上标签，那么本轮将“视而不见”
+                if(jn.status()){
+                    tempJNArr.add(jn);
+                    continue;
+                } else {
+                    jn.selected();
+                    tempJNArr.add(jn);
+                }
             }
             if( isFree || pathParamSet.contains(jn.getPathName()) ){
-
                 // 1、如果子节点是数组的话，那么遍历该数组使数据膨胀
                 if (jn.getBody() instanceof JSONArray){
                     JSONArray ja = (JSONArray)jn.getBody();
